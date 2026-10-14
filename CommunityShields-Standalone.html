@@ -23,7 +23,7 @@
 @media(max-width:420px){.container{width:calc(100% - 30px)}.brand{font-size:.98rem}.hero-buttons{flex-direction:column}.hero-buttons .button{width:100%}.fields-two{grid-template-columns:1fr;gap:0}.form-card{padding:20px 15px}.micro-trust{line-height:1.7}.support-pills span{font-size:10px}.eyebrow{font-size:10px}.hero h1{font-size:clamp(2.35rem,9.5vw,3rem)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 
-</style>
+.field-hint{font-size:13px;color:var(--muted);margin:2px 0 8px}.need-chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 10px}.need-chip{display:inline-flex;align-items:center;background:var(--chip);color:var(--navy);border:1px solid var(--line);border-radius:99px;padding:7px 13px;font-size:12px;font-weight:700;font-family:var(--font);cursor:pointer}.need-chip:hover,.need-chip:focus-visible{background:var(--navy);color:#fff;border-color:var(--navy)}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -85,18 +85,16 @@
 <section id="list" class="section join"><div class="container join-grid"><div class="join-copy"><p class="kicker">Get on the list</p><h2>Put your town on the list.</h2><p>Neighbor, local business, firefighter, EMT, police officer, or town leader — every good initiative starts with someone saying, “I'm interested.”</p><p>Tell us a little about your community. Your note goes directly to the Community Shields team.</p><blockquote><span class="quote-mark">“</span><span class="quote-eyebrow">One quiet promise</span><p>No donations collected here. No politics. Just neighbors and the people who protect them, finally on the same page.</p></blockquote><div class="contact-trust"><span aria-hidden="true">◈</span> Your information is used to respond to your inquiry — not displayed publicly.</div></div>
   <div class="form-card">
     <div class="form-topline"><span class="form-ring">✉</span><div><h3>Start with your community</h3><p>Tell us where you'd like to see a shield.</p></div></div>
-    <!-- FORM CONFIGURATION: Replace mppqygnw with the ID from your Formspree form's endpoint (e.g. abcdefgh). -->
     <form id="interest-form" action="https://formspree.io/f/mppqygnw" method="POST" novalidate>
       <input type="hidden" name="_subject" value="New Community Shields interest inquiry">
       <div class="trap" aria-hidden="true"><label for="website">Leave this field blank</label><input id="website" name="_gotcha" type="text" autocomplete="off" tabindex="-1"></div>
       <div class="fields-two"><div class="field"><label for="name">Your name <span aria-hidden="true">*</span></label><input id="name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" minlength="2" maxlength="120" required></div><div class="field"><label for="email">Email address <span aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" maxlength="254" required></div></div>
-      <div class="fields-two"><div class="field"><label for="town">Town / community <span aria-hidden="true">*</span></label><input id="town" name="town" type="text" autocomplete="address-level2" placeholder="e.g. Kaukauna, WI" maxlength="120" required></div><div class="field"><label for="role">I am a… <span aria-hidden="true">*</span></label><select id="role" name="role" required><option value="">Select your role</option><option>Neighbor / resident</option><option>Local business owner</option><option>Fire / EMS / police representative</option><option>Municipal / county leader</option><option>Nonprofit / civic organization</option><option>Just interested</option></select></div></div>
-      <div class="field"><label for="message">What should your town's shield stand for? <span class="optional">(optional)</span></label><textarea id="message" name="message" rows="4" maxlength="2500" placeholder="Share a local idea, a need you've noticed, or why you're raising your hand…"></textarea></div>
+      <div class="fields-two"><div class="field"><label for="town">Town / community <span aria-hidden="true">*</span></label><input id="town" name="town" type="text" list="wi-places" autocomplete="address-level2" placeholder="Start typing your town - e.g. Kaukauna" maxlength="120" required><datalist id="wi-places"></datalist></div><div class="field"><label for="role">I am a… <span aria-hidden="true">*</span></label><select id="role" name="role" required><option value="">Select your role</option><option>Neighbor / resident</option><option>Local business owner</option><option>Fire / EMS / police representative</option><option>Search &amp; rescue volunteer</option><option>County / tribal emergency management</option><option>Municipal / county leader</option><option>School staff or administrator</option><option>Nonprofit / civic organization</option><option>Faith / community group</option><option>Healthcare provider</option><option>Veteran / military family</option><option>Just interested</option><option>Other</option></select></div></div>
+      <div class="field"><label for="message">What does your town need most? <span class="optional">(optional)</span></label><p class="field-hint">Tap any that fit, or write your own below:</p><div class="need-chips"><button type="button" class="need-chip" data-need="Faster help finding missing people">Finding missing people faster</button><button type="button" class="need-chip" data-need="Water and ice rescue support">Water &amp; ice rescue</button><button type="button" class="need-chip" data-need="Drone search support for missing-person calls">Drone search support</button><button type="button" class="need-chip" data-need="K9 search team support">K9 search teams</button><button type="button" class="need-chip" data-need="Flood and storm response help">Flood &amp; storm response</button><button type="button" class="need-chip" data-need="Better response coverage for rural areas">Rural coverage</button><button type="button" class="need-chip" data-need="Gear and training our responders need">Responder gear &amp; training</button><button type="button" class="need-chip" data-need="AEDs and medical kits in public places">AEDs &amp; medical kits</button><button type="button" class="need-chip" data-need="Fire prevention and safety education">Fire prevention</button><button type="button" class="need-chip" data-need="A community alert network for local emergencies">Community alerts</button></div><textarea id="message" name="message" rows="4" maxlength="2500" placeholder="e.g. Faster help finding missing people, water rescue support, gear our responders can't afford…"></textarea></div>
       <label class="consent"><input type="checkbox" name="permission_to_contact" value="yes" required><span>I agree to be contacted about Community Shields in response to my inquiry. <b aria-hidden="true">*</b></span></label>
       <button class="button primary submit" id="submit-button" type="submit"><span id="submit-label">Raise my hand</span><span aria-hidden="true" id="submit-arrow">→</span></button>
-      <p id="form-mode" class="form-mode"></p>
       <div class="form-feedback" id="form-feedback" role="status" aria-live="polite" hidden></div>
-      <div id="draft-panel" class="draft-panel" hidden><strong>Message preview</strong><p>Copy this draft for your records. Formspree must be connected to deliver inquiries from the website.</p><textarea id="draft-text" rows="9" readonly aria-label="Generated inquiry draft"></textarea><button type="button" class="copy-btn" id="copy-draft">Copy draft</button></div>
+      
       <p class="fineprint">This is an expression of interest, not an official request to or endorsement from any public-safety agency. Please don't submit emergencies or sensitive personal or operational information.</p>
     </form>
   </div>
@@ -106,6 +104,7 @@
 </main>
 <footer class="footer"><div class="container footer-main"><div><a href="#top" class="brand footer-brand" aria-label="Community Shields home"><svg class="logo" viewBox="0 0 48 52" aria-hidden="true"><path d="M24 3 43 10v14c0 12.5-7.6 21-19 25C12.6 45 5 36.5 5 24V10L24 3Z" fill="#eaf7ff" stroke="#70badf" stroke-width="3"/><path d="M24 10 36 15v10c0 7-4.5 12.6-12 16-7.5-3.4-12-9-12-16V15l12-5Z" fill="#0e5784"/><path d="M24 15v20M14 24h20" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg><span>Community<span class="brand-accent">Shields</span></span></a><p>A civic unity project bringing neighbors and public-safety communities together.</p></div><div class="footer-menu"><a href="#idea">The idea</a><a href="#start">How it starts</a><a href="#questions">Questions</a><a href="#list">Get on the list</a></div></div><div class="container footer-base"><p>© <span id="year"></span> Community Shields. A civic initiative, now forming.</p><p>Site imagery is illustrative, not a depiction of confirmed partners or projects.</p></div></footer>
 <script>
+window.WI_PLACES=["Abbotsford", "Abrams", "Adams", "Adell", "Albany", "Algoma", "Allouez", "Alma", "Almena", "Altoona", "Amberg", "Amery", "Amherst", "Amherst Junction", "Aniwa", "Antigo", "Appleton", "Arcadia", "Arena", "Argyle", "Arpin", "Ashland", "Ashwaubenon", "Athens", "Auburndale", "Augusta", "Avoca", "Bagley", "Baileys Harbor", "Baldwin", "Balsam Lake", "Bancroft", "Bangor", "Baraboo", "Barneveld", "Barron", "Bay City", "Bayfield", "Bayside", "Bear Creek", "Beaver Dam", "Belgium", "Belleville", "Bellevue", "Belmont", "Beloit", "Benton", "Berlin", "Big Bend", "Birnamwood", "Black Creek", "Black Earth", "Black River Falls", "Blair", "Blanchardville", "Bloomer", "Blue Mounds", "Bonduel", "Boscobel", "Bowler", "Boyceville", "Boyd", "Brandon", "Brillion", "Bristol", "Brodhead", "Brookfield", "Brooklyn", "Browntown", "Brussels", "Bryant", "Burlington", "Butler", "Butte des Morts", "Cadott", "Caledonia", "Cambria", "Cambridge", "Cameron", "Camp Douglas", "Campbellsport", "Cascade", "Casco", "Cashton", "Cassville", "Catawba", "Cazenovia", "Cecil", "Cedar Grove", "Cedarburg", "Centuria", "Chaseburg", "Chetek", "Chilton", "Chippewa Falls", "Clayton", "Clear Lake", "Cleveland", "Clinton", "Clintonville", "Clyman", "Cobb", "Cochrane", "Colby", "Colfax", "Colgate", "Coloma", "Columbus", "Combined Locks", "Conover", "Conrath", "Coon Valley", "Cornucopia", "Cottage Grove", "Couderay", "Crandon", "Crivitz", "Cross Plains", "Cuba City", "Cudahy", "Cumberland", "Curtiss", "Custer", "Dale", "Dallas", "Dane", "Darien", "De Pere", "De Soto", "DeForest", "Deer Park", "Deerfield", "Delafield", "Delavan", "Denmark", "Dickeyville", "Dodgeville", "Dorchester", "Dousman", "Downing", "Downsville", "Dresser", "Drummond", "Durand", "Eagle", "Eagle River", "East Troy", "Eden", "Edgar", "Edgerton", "Egg Harbor", "Eland", "Elderon", "Eleva", "Elk Mound", "Elkhart Lake", "Elkhorn", "Ellsworth", "Elm Grove", "Elmwood", "Elroy", "Embarrass", "Endeavor", "Ephraim", "Ettrick", "Evansville", "Exeland", "Fairchild", "Fairwater", "Fall Creek", "Fall River", "Fennimore", "Fenwood", "Ferryville", "Fish Creek", "Fitchburg", "Florence", "Fond du Lac", "Fontana-on-Geneva Lake", "Footville", "Forestville", "Fort Atkinson", "Fountain City", "Fox Crossing", "Fox Lake", "Fox Point", "Franklin", "Frederic", "Fredonia", "Freedom", "Fremont", "Friendship", "Friesland", "Galesville", "Gays Mills", "Genoa", "Genoa City", "Germantown", "Gillett", "Gilman", "Gleason", "Glen Flora", "Glenbeulah", "Glendale", "Glenwood City", "Goodman", "Grafton", "Grand Chute", "Grantsburg", "Gratiot", "Green Bay", "Green Lake", "Greenfield", "Greenville", "Greenwood", "Gresham", "Hales Corners", "Hamburg", "Hammond", "Hancock", "Harrison", "Hartford", "Hartland", "Hatley", "Haugen", "Hawkins", "Hayward", "Hazel Green", "Hazelhurst", "Helenville", "Hewitt", "Highland", "Hilbert", "Hillsboro", "Hixton", "Hobart", "Hollandale", "Holmen", "Holton", "Horicon", "Hortonville", "Howard", "Howards Grove", "Hudson", "Hurley", "Hustisford", "Independence", "Ingram", "Iola", "Iron Belt", "Iron Ridge", "Iron River", "Ironton", "Ixonia", "Jackson", "Jacksonport", "Janesville", "Jefferson", "Johnson Creek", "Junction City", "Juneau", "Kaukauna", "Kendall", "Kennan", "Kenosha", "Kewaskum", "Kewaunee", "Kiel", "Kimberly", "Kingston", "Kohler", "Krakow", "Kronenwetter", "La Crosse", "La Farge", "La Pointe", "La Valle", "Lac du Flambeau", "Ladysmith", "Lake Delton", "Lake Geneva", "Lake Hallie", "Lake Mills", "Lake Nebagamon", "Lake Tomahawk", "Lake Wisconsin", "Lakewood", "Lancaster", "Land O' Lakes", "Lannon", "Laona", "Larsen", "Ledgeview", "Lena", "Little Chute", "Livingston", "Lodi", "Loganville", "Lohrville", "Lomira", "Lone Rock", "Long Lake", "Loyal", "Luck", "Luxemburg", "Lyndon Station", "Lynxville", "Madeline Island", "Madison", "Maiden Rock", "Manawa", "Manitowoc", "Maple", "Marathon City", "Maribel", "Marinette", "Marion", "Markesan", "Marquette", "Marshall", "Marshfield", "Mason", "Mattoon", "Mauston", "Mayville", "Mazomanie", "McFarland", "Medford", "Mellen", "Melrose", "Menasha", "Menomonee Falls", "Menomonie", "Mequon", "Mercer", "Merrill", "Merrillan", "Merrimac", "Merton", "Middle Inlet", "Middleton", "Milan", "Milladore", "Milltown", "Milton", "Milwaukee", "Mineral Point", "Minocqua", "Minong", "Mishicot", "Modena", "Mondovi", "Monico", "Monona", "Monroe", "Montello", "Monticello", "Montreal", "Mosinee", "Mount Calvary", "Mount Hope", "Mount Horeb", "Mount Sterling", "Mukwonago", "Muscoda", "Nashotah", "Necedah", "Neenah", "Neillsville", "Nekoosa", "Nelson", "Nelsonville", "Neosho", "Neshkoro", "Neva", "New Auburn", "New Berlin", "New Franken", "New Glarus", "New Holstein", "New Lisbon", "New London", "New Richmond", "Newald", "Newburg", "Niagara", "Nichols", "North Bay", "North Bend", "North Fond du Lac", "North Freedom", "North Hudson", "North Prairie", "Norwalk", "Oak Creek", "Oakdale", "Oakfield", "Oconto", "Oconto Falls", "Ogdensburg", "Ogema", "Oliver", "Omro", "Onalaska", "Oneida", "Ontario", "Oostburg", "Oregon", "Orfordville", "Osceola", "Oshkosh", "Osseo", "Oxford", "Packwaukee", "Paddock Lake", "Palmyra", "Pardeeville", "Park Falls", "Park Ridge", "Patch Grove", "Pembine", "Pepin", "Peshtigo", "Pewaukee", "Phelps", "Phillips", "Pickett", "Pigeon Falls", "Pine River", "Pittsville", "Plain", "Plainfield", "Platteville", "Pleasant Prairie", "Plover", "Plum City", "Plymouth", "Poplar", "Port Edwards", "Port Washington", "Port Wing", "Portage", "Porterfield", "Potosi", "Potter", "Pound", "Powers Lake", "Poynette", "Prairie Farm", "Prairie du Chien", "Prairie du Sac", "Prentice", "Prescott", "Princeton", "Pulaski", "Racine", "Radisson", "Randolph", "Random Lake", "Readstown", "Redgranite", "Reedsburg", "Reeseville", "Rewey", "Rhinelander", "Rib Lake", "Rice Lake", "Richfield", "Richland Center", "Richmond", "Ridgeland", "Ridgeway", "Rio", "Ripon", "River Falls", "River Hills", "Roberts", "Roche-a-Cri", "Rochester", "Rock Falls", "Rock Springs", "Rockdale", "Rockland", "Rome", "Rosendale", "Rosholt", "Rothschild", "Rubicon", "Rudolph", "Rushford", "Rusk", "Salem", "Salem Lakes", "Sanborn", "Sand Creek", "Sarona", "Sauk City", "Saukville", "Sayner", "Scandinavia", "Schofield", "Seneca", "Seymour", "Sharon", "Shawano", "Sheboygan", "Sheboygan Falls", "Sheldon", "Shell Lake", "Sherwood", "Shiocton", "Shorewood", "Shorewood Hills", "Shullsburg", "Silver Cliff", "Silver Lake", "Siren", "Sister Bay", "Slinger", "Sobieski", "Soldiers Grove", "Solon Springs", "Somers", "South Beloit", "South Milwaukee", "South Range", "South Wayne", "Spencer", "Spooner", "Spring Green", "Spring Valley", "Springbrook", "St. Anna", "St. Cloud", "St. Croix Falls", "St. Francis", "St. Germain", "St. Joseph", "St. Nazianz", "Stanley", "Star Lake", "Star Prairie", "Stephensville", "Stetsonville", "Steuben", "Stevens Point", "Stockbridge", "Stockholm", "Stone Lake", "Stoughton", "Stratford", "Strum", "Sturtevant", "Suamico", "Sugar Camp", "Sullivan", "Summit", "Summit Lake", "Sun Prairie", "Superior", "Suring", "Sussex", "Taylor", "Tennyson", "Theresa", "Thiensville", "Thorp", "Three Lakes", "Tigerton", "Tilden", "Tisch Mills", "Tomah", "Tomahawk", "Tony", "Townsend", "Trego", "Trempealeau", "Tunnel City", "Turtle Lake", "Twin Lakes", "Two Rivers", "Union Center", "Union Grove", "Unity", "Valders", "Valley", "Van Dyne", "Vernon", "Verona", "Vesper", "Viola", "Viroqua", "Wabeno", "Waldo", "Wales", "Wallace", "Walworth", "Warrens", "Washburn", "Washington Island", "Waterford", "Waterloo", "Watertown", "Waubeka", "Waukau", "Waukesha", "Waunakee", "Waupaca", "Waupun", "Wausau", "Wausaukee", "Wautoma", "Wauwatosa", "Wauzeka", "Webster", "West Allis", "West Baraboo", "West Bend", "West Milwaukee", "West Prairie", "West Salem", "Westboro", "Westby", "Westfield", "Weston", "Westport", "Weyauwega", "Weyerhaeuser", "Wheeler", "Whitefish Bay", "Whitehall", "Whitelaw", "Whitewater", "Whiting", "Wild Rose", "Willard", "Williams Bay", "Wilton", "Winchester", "Windsor", "Winnebago", "Winneconne", "Winter", "Wisconsin Dells", "Wisconsin Rapids", "Withee", "Wittenberg", "Wonewoc", "Wood County", "Woodford", "Woodland", "Woodman", "Woodruff", "Woodville", "Wrightstown", "Wyeville", "Wyocena", "Yorkville", "Zenda"];
 (()=>{
   'use strict';
   const doc=document.documentElement;
@@ -119,7 +118,7 @@
     doc.setAttribute('data-theme',dark?'dark':'light');
     themeButton.setAttribute('aria-pressed',String(dark));
     themeButton.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');
-    themeIcon.textContent=dark?'☀':'☾';
+    themeIcon.textContent=dark?'\u2600':'\u263E';
     try{localStorage.setItem('community-shields-theme',dark?'dark':'light')}catch(e){}
   }
   let initial='light';
@@ -136,29 +135,37 @@
     nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open navigation');
   }));
 
+  // Town / community autocomplete: Wisconsin places list (suggestions only - any place name can be typed).
+  const townList=document.getElementById('wi-places');
+  if(townList&&Array.isArray(window.WI_PLACES)){
+    const frag=document.createDocumentFragment();
+    window.WI_PLACES.forEach(function(name){const opt=document.createElement('option');opt.value=name;frag.appendChild(opt);});
+    townList.appendChild(frag);
+  }
+
   const form=document.getElementById('interest-form');
   const submitButton=document.getElementById('submit-button');
   const submitLabel=document.getElementById('submit-label');
   const feedback=document.getElementById('form-feedback');
-  const mode=document.getElementById('form-mode');
-  const draftPanel=document.getElementById('draft-panel');
-  const draftText=document.getElementById('draft-text');
-  const copyDraft=document.getElementById('copy-draft');
-
-  // Only send to a valid Formspree form ID. Never post a visitor's information to an unconfigured URL.
+  const message=document.getElementById('message');
   const url=form.getAttribute('action');
-  const endpointPattern=/^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/;
-  const configured=endpointPattern.test(url)&&!url.includes('REPLACE_WITH');
-  if(configured){
-    mode.textContent='Your inquiry will be securely sent through Formspree.';
-  }else{
-    mode.classList.add('is-preview');
-    mode.textContent='Preview mode — the contact inbox has not been connected yet. No information will be sent.';
-  }
-  function inform(message,type){
+
+  // Tappable examples for the needs box: each tap adds the idea in plain words.
+  document.querySelectorAll('[data-need]').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      const text=chip.getAttribute('data-need');
+      if(!message)return;
+      const current=message.value.trim();
+      if(current.toLowerCase().indexOf(text.toLowerCase())!==-1){message.focus();return;}
+      message.value=current?(current.replace(/[.\s]+$/,'')+'. '+text+'.'):text+'.';
+      message.focus();
+    });
+  });
+
+  function inform(text,type){
     feedback.hidden=false;
     feedback.className='form-feedback '+type;
-    feedback.textContent=message;
+    feedback.textContent=text;
   }
   const fieldIds=['name','email','town','role'];
   fieldIds.forEach(id=>{
@@ -170,7 +177,6 @@
   form.addEventListener('submit',async(e)=>{
     e.preventDefault();
     feedback.hidden=true;
-    draftPanel.hidden=true;
     if(!form.checkValidity()){
       form.reportValidity();
       inform('Please complete the required fields and agree to be contacted.','error');
@@ -178,28 +184,8 @@
     }
     const data=new FormData(form);
     if(data.get('_gotcha'))return; // Honeypot: silently ignore automated spam.
-    if(!configured){
-      const lines=[
-        'Subject: Community Shields — New town interest',
-        '',
-        'Name: '+data.get('name'),
-        'Email: '+data.get('email'),
-        'Town / community: '+data.get('town'),
-        'Role: '+data.get('role'),
-        '',
-        'Community interests / needs:',
-        data.get('message')||'(Not provided)',
-        '',
-        'Permission to contact: Yes'
-      ];
-      draftText.value=lines.join('\n');
-      draftPanel.hidden=false;
-      inform('The contact inbox is not configured. No message was sent. A copyable draft is shown below.','info');
-      draftPanel.scrollIntoView({block:'nearest',behavior:'smooth'});
-      return;
-    }
     submitButton.disabled=true;
-    submitLabel.textContent='Sending…';
+    submitLabel.textContent='Sending\u2026';
     submitButton.setAttribute('aria-busy','true');
     try{
       const response=await fetch(url,{method:'POST',body:data,headers:{'Accept':'application/json'}});
@@ -207,7 +193,7 @@
         inform('Thank you! Your message was sent successfully. The team can review your Community Shields inquiry.','success');
         form.reset();
       }else{
-        let errorMessage='We could not send your message. Please try again.';
+        let errorMessage='We could not send your message. Please try again \u2014 or reach us at hello@nextgenerationai360.com.';
         try{
           const result=await response.json();
           if(Array.isArray(result.errors)&&result.errors.length){
@@ -224,17 +210,6 @@
       submitButton.removeAttribute('aria-busy');
     }
   });
-  copyDraft.addEventListener('click',async()=>{
-    try{
-      await navigator.clipboard.writeText(draftText.value);
-      copyDraft.textContent='Copied!';
-      copyDraft.setAttribute('aria-label','Message draft copied');
-    }catch(_){
-      draftText.focus();draftText.select();
-      copyDraft.textContent='Select all and copy';
-    }
-  });
 })();
-
 </script>
 </body></html>
