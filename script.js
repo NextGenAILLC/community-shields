@@ -83,15 +83,15 @@
     try{
       const response=await fetch(url,{method:'POST',body:data,headers:{'Accept':'application/json'}});
       if(response.ok){
-        inform('Thank you! Your message was sent successfully. The team can review your Community Shields inquiry.','success');
+        inform('Thank you \u2014 you\u2019re on the list. The Community Shields team will follow up by email.','success');
         form.reset();
       }else{
         let errorMessage='We could not send your message. Please try again \u2014 or reach us at hello@nextgenerationai360.com.';
         try{
           const result=await response.json();
-          if(Array.isArray(result.errors)&&result.errors.length){
-            errorMessage=result.errors.map(x=>x.message).filter(x=>typeof x==='string').join(' ');
-          }else if(typeof result.error==='string'){errorMessage=result.error;}
+          if(Array.isArray(result.errors)&&result.errors.some(x=>x&&x.field==='email')){
+            errorMessage='Please double-check your email address and try again.';
+          }
         }catch(_){}
         inform(errorMessage,'error');
       }

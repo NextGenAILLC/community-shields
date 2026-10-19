@@ -59,7 +59,9 @@ A fully portable, **self-contained single-file HTML** version is also provided s
 - [x] Formspree form `mppqygnw` connected; a test submission returned `ok: true`
 - [x] Privacy policy published at `/privacy` and linked from the form and footer
 - [x] Custom 404 page (`404.html`)
-- [x] Sitemap, robots.txt, canonical URL, social cards, and one valid Organization JSON-LD block
+- [x] Sitemap, robots.txt, canonical URL, one valid Organization JSON-LD block
+- [x] Link-preview image `assets/og-image.jpg` (1200x630 JPG; WebP previews fail on some platforms) and `apple-touch-icon.png`
+- [x] Privacy policy reviewed: operator (NextGen AI LLC), processors, 24-month retention, 30-day request handling, children, change notice
 - [ ] Formspree dashboard: turn on spam filtering/reCAPTCHA and restrict submissions to `communityshields.com`
 - [ ] Get approval before naming any government department as an official partner or publishing its needs
 - [ ] If you later accept donations, add proper disclosures, approvals, accounting, and clear handling of funds
