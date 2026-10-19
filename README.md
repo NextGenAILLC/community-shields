@@ -10,7 +10,7 @@ A responsive civic-unity landing page, using plain HTML/CSS/JavaScript. No npm i
 4. In `index.html`, find this exact line:
 
    ```html
-   <form id="interest-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
+   <form id="interest-form" action="https://formspree.io/f/mppqygnw" method="POST" novalidate>
    ```
 
    Replace `REPLACE_WITH_YOUR_FORM_ID` with your real form ID. Save.
@@ -53,13 +53,15 @@ The included `vercel.json` applies a few standard protective response headers. T
 
 A fully portable, **self-contained single-file HTML** version is also provided separately as `CommunityShields-Standalone.html`. To activate Formspree there, edit its same `action=` setting.
 
-## 5. Before launch
+## 5. Launch status (verified 2026-10-19)
 
-- [ ] Add your real Formspree form ID and verify notifications
-- [ ] Confirm program ownership and a public project contact identity
-- [ ] Add an appropriate privacy policy and data retention/contact procedure (Formspree will process submissions)
-- [ ] Obtain approval before naming any government department as an official partner or publishing their needs
+- [x] Live at https://communityshields.com on GitHub Pages, HTTPS enforced; `www` and `http` redirect to the main domain
+- [x] Formspree form `mppqygnw` connected; a test submission returned `ok: true`
+- [x] Privacy policy published at `/privacy` and linked from the form and footer
+- [x] Custom 404 page (`404.html`)
+- [x] Sitemap, robots.txt, canonical URL, social cards, and one valid Organization JSON-LD block
+- [ ] Formspree dashboard: turn on spam filtering/reCAPTCHA and restrict submissions to `communityshields.com`
+- [ ] Get approval before naming any government department as an official partner or publishing its needs
 - [ ] If you later accept donations, add proper disclosures, approvals, accounting, and clear handling of funds
-- [ ] Test on a phone, inspect links, proofread project statements, and choose the approved domain
 
-This is an initial public-facing **interest site**. It is not yet a database-backed community portal or emergency-response service.
+This is a public **interest site**. It is not a database-backed community portal or an emergency-response service.
