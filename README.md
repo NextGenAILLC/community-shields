@@ -1,65 +1,101 @@
-# Community Shields — launch-ready static website
+# Community Shields — static website
 
-A responsive civic-unity landing page, using plain HTML/CSS/JavaScript. No npm install, database, or framework required. Includes site imagery, favicon, light/dark mode, mobile navigation, FAQ, an interest form and Formspree submission handling.
+The public interest site for **Community Shields**, a civic-unity initiative (now forming in Wisconsin) that brings neighbors, local businesses, and fire, EMS and police communities together.
 
-## 1. Connect the actual contact inbox (required for live delivery)
+Live at **https://communityshields.com/**.
 
-1. Create or sign in to **[Formspree](https://formspree.io/)**.
-2. Create a new form (e.g. **Community Shields – Community interest**), and configure the recipient/notification email **inside your Formspree account**. Complete any email verification the service requests.
-3. Copy the Formspree form endpoint, which looks like `https://formspree.io/f/abcdefgh` (your ID will be different).
-4. In `index.html`, find this exact line:
+The site is plain HTML, CSS and JavaScript. There is no build step, no npm install, no database and no framework. It includes illustrative imagery, a favicon, light/dark mode, mobile navigation, an FAQ, and a community-interest form that submits to Formspree.
 
-   ```html
-   <form id="interest-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
-   ```
+This is an interest site. It is not a database-backed community portal, an emergency-reporting service, or evidence of any agency partnership.
 
-   Replace `REPLACE_WITH_YOUR_FORM_ID` with your real form ID. Save.
-5. Submit one test inquiry and verify you receive it in the Formspree dashboard and configured notification inbox. Configure domain and spam protections as appropriate in Formspree.
+## Repository contents
 
-**Important:** The downloaded file does **not** include a live Formspree ID because access to your Formspree account has not been provided. Until configured, the form *validates user input and creates a copyable draft*, but it **does not transmit a message** or claim to have sent one. There is no hardcoded email address, API secret, or hidden backend.
+| Path | Purpose |
+| --- | --- |
+| `index.html` | Page content, metadata (canonical URL, Open Graph, Twitter card, Organization JSON-LD) and the interest form |
+| `styles.css` | Design, layout, typography and responsive breakpoints |
+| `script.js` | Theme toggle, mobile menu, need chips, town autocomplete wiring, form validation and submission |
+| `wi-places.js` | List of 659 Wisconsin place names used for the town/community autocomplete |
+| `CommunityShields-Standalone.html` | Self-contained single-file copy of the site (styles, scripts, place list and images inlined) |
+| `assets/*.webp` | Illustrative AI-generated concept imagery — not photographs of real Wisconsin places or partner departments |
+| `favicon.svg` | Scalable shield icon |
+| `robots.txt`, `sitemap.xml` | Search-engine crawl rules and sitemap for communityshields.com |
+| `CNAME` | Custom domain (`communityshields.com`) for GitHub Pages |
+| `vercel.json` | Optional config with clean URLs and protective headers, used only if the site is deployed to Vercel |
+| `SECURITY.md` | How to report a vulnerability privately |
 
-### Form fields delivered to Formspree
+## Interest form
 
-- Name, email, town/community, role, optional message, and explicit permission-to-contact checkbox
-- An automated email subject; an invisible honeypot (`_gotcha`) for basic bot deterrence
+The form in `index.html` (and in the standalone file) posts to a live Formspree endpoint:
 
-Visitors receive clear success/error messages only after the Formspree response. No sensitive operational, personal, or emergency reports should be collected through this interest form.
+```html
+<form id="interest-form" action="https://formspree.io/f/mppqygnw" method="POST" novalidate>
+```
 
-## 2. Run locally
+Submissions are delivered to the notification inbox configured in the Formspree account that owns this form. To change where submissions go, change the recipient in Formspree, or replace the form ID in **both** `index.html` and `CommunityShields-Standalone.html`.
 
-Open `index.html` directly in a modern browser. Or use a local web server:
+### Fields sent
+
+- Name, email address, town/community (with Wisconsin place autocomplete), and role
+- Role options include neighbor/resident, local business owner, fire/EMS/police representative, search & rescue volunteer, county/tribal emergency management, municipal/county leader, school staff, nonprofit/civic organization, faith/community group, healthcare provider, veteran/military family, "just interested" and other
+- Optional "What does your town need most?" message, with tappable example chips (for example, finding missing people faster, water & ice rescue, rural coverage, AEDs & medical kits, community alerts) that add text to the message
+- Required permission-to-contact checkbox
+- A fixed email subject (`_subject`) and a hidden honeypot field (`_gotcha`) for basic bot deterrence
+
+### Behavior
+
+- Required fields are validated in the browser before sending.
+- The form submits with `fetch` and shows a success message only after Formspree confirms receipt.
+- On a Formspree error, the visitor sees the returned error or a fallback message with the contact address `hello@nextgenerationai360.com`. Network failures show a separate retry message.
+- Submissions that fill the honeypot are silently dropped.
+- The page asks visitors not to submit emergencies or sensitive personal or operational information.
+
+No API keys or secrets are stored in this repository. The Formspree form ID is public by design.
+
+## Run locally
+
+Open `index.html` directly in a modern browser, or serve the folder:
 
 ```bash
 python -m http.server 8000
 ```
 
-Visit `http://localhost:8000`. The page works without building. The online Google Fonts are optional; system font fallbacks are included.
+Then visit `http://localhost:8000`. Google Fonts (DM Sans and Libre Baskerville) load from the web; system font fallbacks are used when offline.
 
-## 3. Deploy to Vercel
+Test submissions from a local copy are real and will reach the Formspree inbox.
 
-- **Fastest:** Go to [Vercel](https://vercel.com/new), create a static project, and upload/import this folder via a GitHub repository. Select **Other** framework, no build command, and output directory `.` (root).
-- **CLI alternative:** From this directory, run `npx vercel` to preview; then `npx vercel --prod` to deploy when you approve going public.
-- Point your chosen domain to the project in Vercel's dashboard when ready.
+## Deployment
 
-The included `vercel.json` applies a few standard protective response headers. There are no serverless functions and no environment variables required for the static site.
+### Current hosting: GitHub Pages
 
-## 4. Edit the copy or imagery
+The live site is published by **GitHub Pages** from the root of the `main` branch, with the custom domain set by `CNAME` and HTTPS enabled. Merging to `main` publishes the change automatically, usually within a minute or two.
 
-- `index.html`: headings, text, questions, form endpoint
-- `styles.css`: design, layout, typography, responsive breakpoints
-- `script.js`: interactive theme/menu and contact submission behavior
-- `assets/*.webp`: illustrative **AI-generated concept imagery** derived from the design; not documentary photographs of actual Wisconsin places or partnered departments
-- `favicon.svg`: scalable shield icon
+GitHub Pages does not read `vercel.json`, so its headers and clean-URL settings do not apply to the live site.
 
-A fully portable, **self-contained single-file HTML** version is also provided separately as `CommunityShields-Standalone.html`. To activate Formspree there, edit its same `action=` setting.
+### Optional: Vercel
 
-## 5. Before launch
+To deploy to Vercel instead, import this repository at [vercel.com/new](https://vercel.com/new), choose the **Other** framework preset, leave the build command empty and set the output directory to `.`. Or, from this folder, run `npx vercel` for a preview and `npx vercel --prod` for production. Moving `communityshields.com` to Vercel would require updating DNS and removing or disabling the GitHub Pages custom domain.
 
-- [ ] Add your real Formspree form ID and verify notifications
-- [ ] Confirm program ownership and a public project contact identity
-- [ ] Add an appropriate privacy policy and data retention/contact procedure (Formspree will process submissions)
-- [ ] Obtain approval before naming any government department as an official partner or publishing their needs
-- [ ] If you later accept donations, add proper disclosures, approvals, accounting, and clear handling of funds
-- [ ] Test on a phone, inspect links, proofread project statements, and choose the approved domain
+## Editing
 
-This is an initial public-facing **interest site**. It is not yet a database-backed community portal or emergency-response service.
+- Copy, FAQ and form fields live in `index.html`. Change the same content in `CommunityShields-Standalone.html` to keep the two in sync.
+- If you change the domain, update `CNAME`, `robots.txt`, `sitemap.xml`, and the canonical, Open Graph, Twitter and JSON-LD URLs in both HTML files.
+- To add or correct a town in the autocomplete, edit the array in `wi-places.js`.
+
+## Launch checklist
+
+- [x] Connect a live Formspree form
+- [x] Publish on communityshields.com with HTTPS
+- [x] Add `robots.txt`, `sitemap.xml`, canonical and social-sharing metadata
+- [x] Add a security reporting policy (`SECURITY.md`)
+- [ ] Send a test inquiry after each form change and confirm it arrives in the Formspree dashboard and notification inbox
+- [ ] Review Formspree spam protection and restrict the form to the communityshields.com domain
+- [ ] Add a privacy policy covering what is collected, how long it is kept, and how to request deletion (Formspree processes submissions)
+- [ ] Confirm program ownership and the public contact identity
+- [ ] Get written approval before naming any government department or agency as a partner or publishing its needs
+- [ ] If donations are ever accepted, add the required disclosures, approvals, accounting and fund-handling procedures first
+- [ ] Test on a phone, check all links and proofread the project statements
+
+## Security
+
+See [`SECURITY.md`](SECURITY.md). For emergencies, call 911.
