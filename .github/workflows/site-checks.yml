@@ -1,0 +1,78 @@
+name: Site checks
+
+# Guards the live form wiring on every push, on demand, and weekly —
+# a retired form endpoint in the source fails the run with the exact
+# file and line annotated, and every run leaves a one-page summary.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 14 * * 1"
+
+permissions:
+  contents: read
+
+env:
+  EXPECTED_ENDPOINT: "mvkapjjd"
+  RETIRED_ENDPOINTS: "xyekdlog xppqygbw mppqygnw xoejkoba maeqzagw"
+  SCAN_PATHS: "index.html CommunityShields-Standalone.html script.js privacy.html"
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site source
+        uses: actions/checkout@v4
+
+      - name: Record run context
+        run: |
+          echo "CHECKED_SHA=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+          echo "CHECKED_AT=$(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_ENV"
+
+      - name: Audit form endpoints
+        id: forms
+        run: |
+          echo "::group::Form endpoint audit"
+          grep -RIn --exclude='*.md' "formspree.io/f/${EXPECTED_ENDPOINT}" $SCAN_PATHS > /tmp/hits.txt || true
+          hits=$(wc -l < /tmp/hits.txt)
+          echo "expected_hits=${hits}" >> "$GITHUB_OUTPUT"
+          cat /tmp/hits.txt
+          forbidden_found=0
+          for old in ${RETIRED_ENDPOINTS}; do
+            grep -RIn --exclude='*.md' "formspree.io/f/${old}" $SCAN_PATHS > /tmp/bad.txt || true
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              forbidden_found=1
+              file=$(echo "$line" | cut -d: -f1)
+              lineno=$(echo "$line" | cut -d: -f2)
+              echo "::error file=${file},line=${lineno}::Retired form endpoint ${old} is still in the shipped source"
+            done < /tmp/bad.txt
+          done
+          echo "forbidden_found=${forbidden_found}" >> "$GITHUB_OUTPUT"
+          echo "::endgroup::"
+          if [ "$hits" -eq 0 ]; then
+            echo "::error::Expected form endpoint ${EXPECTED_ENDPOINT} was not found in the shipped source"
+          fi
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Site checks"
+            echo ""
+            echo "| Check | Result |"
+            echo "| --- | --- |"
+            echo "| Expected endpoint \`${EXPECTED_ENDPOINT}\` | ${{ steps.forms.outputs.expected_hits }} reference(s) |"
+            echo "| Retired endpoint present | ${{ steps.forms.outputs.forbidden_found }} |"
+            echo "| Commit | ${CHECKED_SHA} |"
+            echo "| Checked | ${CHECKED_AT} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verdict
+        run: |
+          if [ "${{ steps.forms.outputs.forbidden_found }}" = "1" ] || [ "${{ steps.forms.outputs.expected_hits }}" = "0" ]; then
+            echo "::error::Site checks failed — see the annotations above"
+            exit 1
+          fi
+          echo "::notice::Site checks passed — forms point at the current endpoint and no retired endpoint remains"
