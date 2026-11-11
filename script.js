@@ -60,7 +60,7 @@
     feedback.className='form-feedback '+type;
     feedback.textContent=text;
   }
-  const fieldIds=['name','email','town','role'];
+  const fieldIds=['name','email'];
   fieldIds.forEach(id=>{
     const field=document.getElementById(id);
     field.addEventListener('invalid',()=>field.setAttribute('aria-invalid','true'));
@@ -72,7 +72,7 @@
     feedback.hidden=true;
     if(!form.checkValidity()){
       form.reportValidity();
-      inform('Please complete the required fields and agree to be contacted.','error');
+      inform('Please complete the required fields.','error');
       return;
     }
     const data=new FormData(form);
